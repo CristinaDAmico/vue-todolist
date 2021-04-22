@@ -21,9 +21,19 @@ const app = new Vue({
             },
         ],
         newTodo: '', 
+        editTodo: {
+            visibility: false,
+            text: '',
+            index: null,
+        }
     },
     methods: {
-        // Insert a new todo on the list
+        /***
+        * 
+        * Insert a new todo on the list
+        * 
+        ****/
+
         addTodo() {
             console.log('Add new item here');
 
@@ -44,6 +54,7 @@ const app = new Vue({
         * @param {number} index array position of the todo item
         * 
         ***/
+
         removeTodo(index) {
             console.log(index);
             this.todos.splice(index, 1);
@@ -53,13 +64,46 @@ const app = new Vue({
         },
 
         /***
-         * Update todo completed status
-         * 
-         * @param {number} index array position of the todo item
-         * 
-         ***/
+        * Update todo completed status
+        * 
+        * @param {number} index array position of the todo item
+        *
+        ***/
+
         updateStatus(index) {
             this.todos[index].completed = ! this.todos[index].completed;
+        },
+
+        /***
+        * 
+        * parte bonus
+        * 
+        ***/
+        showEdit(index) {
+
+            // editTodo: {
+            //     visibility: false,
+            //     text: '',
+            //     index: null,
+            // }
+
+            this.editTodo.text = this.todos[index].text;
+            this.editTodo.index = index;
+            this.editTodo.visibility = true;
+        },
+
+        updateTodo() {
+            console.log(this.editTodo);
+
+            this.todos[this.editTodo.index].text = this.editTodo.text;
+
+            this.closeEdit();
+        },
+
+        closeEdit() {
+            this.editTodo.text = '';
+            this.editTodo.index = null;
+            this.editTodo.visibility = false;
         }
     }
 });

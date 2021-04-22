@@ -44,12 +44,30 @@
                         {{ todo.text }}
                     </span>
 
-                    <i class="fas fa-times"
-                        @click="removeTodo(index)"
-                    ></i>
+                    <div class="icons">
+                        <i class="fas fa-pen"
+                            @click="showEdit(index)"
+                        ></i>
+
+
+                        <i class="fas fa-times"
+                            @click="removeTodo(index)"
+                        ></i>
+                    </div>
                 </li>
             </ul>
             <h2 v-else>Non ci sono todos</h2>
+        </section>
+
+        <section v-show="editTodo.visibility" class="edit-modal">
+            <div class="content">
+                <h3>Update Todo text</h3>
+                <input type="text" v-model="editTodo.text" @keyup.enter="updateTodo">
+                <div>
+                    <button @click="updateTodo">Update</button>
+                    <button @click="closeEdit">Close</button>
+                </div>
+            </div>
         </section>
 
     </div>
